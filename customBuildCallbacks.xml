@@ -1,0 +1,23 @@
+<project name="Build specific targets and properties" default="noDefault">
+
+<target name="noDefault">
+</target>
+<target name="pre.@dot">
+	<echo message="Inside pre.at.dot in customBuildCallback ${source.folder1} ${target.folder}"
+		  file="/home/user1/workspace-rap/antout.txt"/>
+	<taskdef resource="scala/tools/ant/antlib.xml">
+		<classpath location="lib/scala-library.jar" />
+		<classpath location="lib/scala-compiler.jar" />
+	</taskdef>
+	<scalac srcdir="${source.folder1}" destdir="${target.folder}" force="changed">
+		<classpath location="lib/scala-library.jar" />
+		<classpath refid="@dot.classpath" />
+	</scalac>
+</target>
+<target name="post.compile.@dot">
+	<echo message="Inside post.compile.at.dot in customBuildCallback ${target.folder}"/>
+	<delete>
+		<fileset dir="${target.folder}" includes="**/*.scala" />
+	</delete>
+</target>
+</project>
